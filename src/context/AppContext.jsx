@@ -3,7 +3,11 @@ import React, { createContext, useReducer } from 'react';
 const AppContext = createContext();
 
 const initialState = {
-  contacts: [],
+  contacts: [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+    { id: 3, name: 'Charlie' },
+  ],
   messages: {},
   selectedContact: null,
 };

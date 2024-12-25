@@ -1,34 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppContext } from '../context/AppContext';
-import MessageInput from './MessageInput';
+import { useInstantDB } from '../hooks/useInstantDB';
 import '../styles/ChatWindow.css';
 
 const ChatWindow = () => {
   const { state } = useAppContext();
-  const [messages, setMessages] = useState([]);
+  const { useMessages } = useInstantDB();
 
   const selectedContact = state.selectedContact;
+  const { isLoading, error, messages } = useMessages(selectedContact?.id);
+  // console.log(messages)
 
-  if (!selectedContact) {
-    return <div className="chat-window empty">Select a contact to start chatting</div>;
-  }
+  if (!selectedContact) return <div className="placeholder">Select a contact to start chatting</div>;
+  if (isLoading) return <div className="chat-window">Loading messages...</div>;
+  if (error) return <div className="chat-window">Error loading messages: {error.message}</div>;
 
   return (
     <div className="chat-window">
       <div className="chat-header">{selectedContact.name}</div>
-      <div className="chat-history">
-        {messages.map((message, index) => (
+      <div className="chat-messages">
+        {messages.map((message) => (
           <div
-            key={index}
-            className={`chat-message ${
-              message.sender === 'me' ? 'sent' : 'received'
-            }`}
+            key={message.id}
+            className={`message ${message.sender === 'me' ? 'sent' : 'received'}`}
           >
             {message.text}
           </div>
         ))}
       </div>
-      <MessageInput contactId={selectedContact.id} setMessages={setMessages} />
     </div>
   );
 };

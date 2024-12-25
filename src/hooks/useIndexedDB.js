@@ -3,19 +3,23 @@ import { openDB } from 'idb';
 export const useIndexedDB = () => {
   const dbPromise = openDB('MessagingAppDB', 1, {
     upgrade(db) {
-      db.createObjectStore('messages', { keyPath: 'id', autoIncrement: true });
+      const store = db.createObjectStore('messages', {
+        keyPath: 'id',
+        autoIncrement: true,
+      });
+      store.createIndex('contactId', 'contactId', { unique: false });
     },
   });
 
-  const addMessage = async (message) => {
+  const saveMessage = async (contactId, message) => {
     const db = await dbPromise;
-    await db.put('messages', message);
+    await db.put('messages', { contactId, ...message });
   };
 
   const getMessages = async (contactId) => {
     const db = await dbPromise;
-    return await db.getAllFromIndex('messages', 'contactId', contactId);
+    return db.getAllFromIndex('messages', 'contactId', contactId);
   };
 
-  return { addMessage, getMessages };
+  return { saveMessage, getMessages };
 };

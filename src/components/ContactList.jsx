@@ -11,6 +11,7 @@ const ContactList = () => {
 
   return (
     <div className="contact-list">
+      <div className="chatList-header">Chats</div>
       {state.contacts.map((contact) => (
         <div
           key={contact.id}

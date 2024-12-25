@@ -1,39 +1,29 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useInstantDB } from '../hooks/useInstantDB';
 import '../styles/MessageInput.css';
 
-const MessageInput = ({ contactId, setMessages }) => {
-  const [message, setMessage] = useState('');
-  const { dispatch } = useAppContext();
+const MessageInput = () => {
+  const { state } = useAppContext();
+  const [newMessage, setNewMessage] = useState('');
+  const { addMessage } = useInstantDB();
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      const newMessage = {
-        sender: 'me',
-        text: message,
-        timestamp: new Date().toISOString(),
-      };
+  const sendMessage = async () => {
+    if (!newMessage.trim() || !state.selectedContact) return;
 
-      setMessages((prev) => [...prev, newMessage]);
-
-      dispatch({
-        type: 'ADD_MESSAGE',
-        payload: { contactId, message: newMessage },
-      });
-
-      setMessage('');
-    }
+    await addMessage(state.selectedContact.id, newMessage);
+    setNewMessage('');
   };
 
   return (
     <div className="message-input">
       <input
         type="text"
-        placeholder="Type a message..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={newMessage}
+        onChange={(e) => setNewMessage(e.target.value)}
+        placeholder="Type a message"
       />
-      <button onClick={handleSendMessage}>Send</button>
+      <button onClick={sendMessage}>Send</button>
     </div>
   );
 };

@@ -1,0 +1,28 @@
+.chat-window {
+  background-color: aquamarine;
+}
+
+.contact-item {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 1rem;
+}
+
+.message.sent {
+  text-align: right;
+  color: #007bff;
+}
+
+.message.received {
+  text-align: left;
+  color: #333;
+}
