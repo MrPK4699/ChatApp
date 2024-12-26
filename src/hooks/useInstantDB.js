@@ -9,13 +9,16 @@ export const useInstantDB = () => {
   /**
    * Add a new message to the database
    */
+
+  const myId=JSON.parse(localStorage.getItem('myContactId'))
+
   const addMessage = async (contactId, text) => {
     try {
       console.log('Message sent:', { contactId, text });
 
       await db.transact(
         db.tx.messages[id()].update({
-          senderId: localStorage.getItem('myContactId'),
+          senderId: myId,
           receiverId: contactId,
           text,
           createdAt: new Date(),
@@ -32,24 +35,48 @@ export const useInstantDB = () => {
 
   const useMessages = (contactId) => {
     // console.log(typeof contactId , contactId)
-    const query = {
+//     const query = {
+//       messages: {
+//         $: {
+//           where: {
+//             // contactId: contactId, 
+//             or: [
+//                   { 
+//                         and:[{senderId: contactId} , {receiverId: myId}] 
+//                   }, 
+//                   { 
+//                         and: [{senderId: myId} , {receiverId: contactId}] 
+//                   }
+//             ],
+//           },
+//         },
+//       },
+//     }
+  
+const query = {
       messages: {
         $: {
           where: {
-            // contactId: contactId, 
             or: [
-                  { 
-                        and:[{senderId: contactId} , {receiverId: 12345}] 
-                  }, 
-                  { 
-                        and: [{senderId: 12345} , {receiverId: contactId}] 
-                  }
+              {
+                and: [
+                  { senderId: contactId },
+                  { receiverId: myId },
+                ],
+              },
+              {
+                and: [
+                  { senderId: myId },
+                  { receiverId: contactId },
+                ],
+              },
             ],
           },
         },
       },
-    }
-  
+    };
+    
+
     // console.log('Query:', query);
   
     const { isLoading, error, data } = db.useQuery(query);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useAuthCheck } from '../hooks/useAuthCheck';
 
-const LoginForm = () => {
+const LoginForm = ({onLogin}) => {
   const [contactId, setContactId] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser } = useAuth();
@@ -25,6 +25,7 @@ const LoginForm = () => {
     try {
       const loggedInUser = await loginUser({ contactId, password }, user);
       alert(`Welcome ${loggedInUser.name}!`);
+      onLogin()
     } catch (loginError) {
       alert('Login failed: ' + loginError.message);
     }

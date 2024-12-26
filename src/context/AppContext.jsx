@@ -4,11 +4,10 @@ const AppContext = createContext();
 
 const initialState = {
   contacts: [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' },
-    { id: 3, name: 'Charlie' },
-    { id: 1234, name: 'Chris' }
-
+    { id: 9009009001, name: 'Alice' },
+    { id: 9009009002, name: 'Bob' },
+    { id: 9009009003, name: 'Charlie' },
+    { id: 9009009004, name: 'Chris' }
   ],
   messages: {},
   selectedContact: null,

@@ -5,6 +5,13 @@ import '../styles/ContactList.css';
 const ContactList = () => {
   const { state, dispatch } = useAppContext();
 
+  const loggedInUserId = Number(localStorage.getItem('myContactId'));
+  // const userName= 
+  // Filter out the logged-in user from the contacts list
+  const filteredContacts = state.contacts.filter(
+    (contact) => contact.id !== loggedInUserId
+  );
+
   const handleContactClick = (contact) => {
     dispatch({ type: 'SET_SELECTED_CONTACT', payload: contact });
   };
@@ -12,7 +19,7 @@ const ContactList = () => {
   return (
     <div className="contact-list">
       <div className="chatList-header">Chats</div>
-      {state.contacts.map((contact) => (
+      {filteredContacts.map((contact) => (
         <div
           key={contact.id}
           className="contact-item"
@@ -26,3 +33,4 @@ const ContactList = () => {
 };
 
 export default ContactList;
+

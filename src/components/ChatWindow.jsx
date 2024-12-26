@@ -22,7 +22,7 @@ const ChatWindow = () => {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`message ${message.sender === 'me' ? 'sent' : 'received'}`}
+            className={`message ${message.senderId === JSON.parse(localStorage.getItem('myContactId')) ? 'sent' : 'received'}`}
           >
             <div className='msg'>
               {message.text}
