@@ -1,3 +1,8 @@
+
+.placeholder{
+  text-align: center;
+}
+
 .contact-item {
   padding: 1rem;
   border-bottom: 1px solid #ddd;
@@ -25,7 +30,7 @@
 }
 
 .message.received {
-  color: #333;
+  color: white;
   display: flex;
   flex-direction: row-reverse;
 }

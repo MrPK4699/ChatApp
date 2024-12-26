@@ -37,7 +37,6 @@ const App = () => {
                 <Navigate to="/chat" />
               ) : (
                 <div className="auth-container">
-                  <h1>Please Log In</h1>
                   <LoginForm onLogin={() => setIsLoggedIn(true)} />
                 </div>
               )

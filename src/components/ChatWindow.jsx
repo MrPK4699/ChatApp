@@ -12,8 +12,8 @@ const ChatWindow = () => {
   console.log(messages)
 
   if (!selectedContact) return <div className="placeholder">Select a contact to start chatting</div>;
-  if (isLoading) return <div className="chat-window">Loading messages...</div>;
-  if (error) return <div className="chat-window">Error loading messages: {error.message}</div>;
+  if (isLoading) return <div className="placeholder">Loading messages...</div>;
+  if (error) return <div className="placeholder">Error loading messages: {error.message}</div>;
 
   return (
     <div className="chat-window">
