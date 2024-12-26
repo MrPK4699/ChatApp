@@ -2,7 +2,7 @@ import { init, id } from '@instantdb/react';
 
 // Initialize InstantDB with API key from environment variables
 const db = init({
-  appId: process.env.REACT_APP_INSTANTDB_API_KEY, // Ensure this is set in .env file
+  appId: process.env.REACT_APP_INSTANTDB_API_KEY
 });
 
 export const useInstantDB = () => {
@@ -15,7 +15,8 @@ export const useInstantDB = () => {
 
       await db.transact(
         db.tx.messages[id()].update({
-          contactId,
+          senderId: localStorage.getItem('myContactId'),
+          receiverId: contactId,
           text,
           createdAt: new Date(),
         }),
@@ -35,7 +36,15 @@ export const useInstantDB = () => {
       messages: {
         $: {
           where: {
-            contactId: contactId, 
+            // contactId: contactId, 
+            or: [
+                  { 
+                        and:[{senderId: contactId} , {receiverId: 12345}] 
+                  }, 
+                  { 
+                        and: [{senderId: 12345} , {receiverId: contactId}] 
+                  }
+            ],
           },
         },
       },
@@ -57,5 +66,6 @@ export const useInstantDB = () => {
     return { isLoading, error, messages: sortedMessages };
   };
   
+
   return { addMessage, useMessages };
 };

@@ -9,7 +9,7 @@ const ChatWindow = () => {
 
   const selectedContact = state.selectedContact;
   const { isLoading, error, messages } = useMessages(selectedContact?.id);
-  // console.log(messages)
+  console.log(messages)
 
   if (!selectedContact) return <div className="placeholder">Select a contact to start chatting</div>;
   if (isLoading) return <div className="chat-window">Loading messages...</div>;
@@ -24,7 +24,9 @@ const ChatWindow = () => {
             key={message.id}
             className={`message ${message.sender === 'me' ? 'sent' : 'received'}`}
           >
-            {message.text}
+            <div className='msg'>
+              {message.text}
+            </div>
           </div>
         ))}
       </div>
