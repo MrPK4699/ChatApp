@@ -1,0 +1,23 @@
+.message {
+      margin-bottom: 1rem;
+    
+    }
+    .msg{
+      width: fit-content;
+      background: white;
+      padding: 0.5rem;
+      border-radius: 12px 4px;
+    }
+    .message.sent {
+      text-align: right;
+      color: #007bff;
+    }
+    
+    .message.received {
+      color: white;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .message.received .msg{
+      background: #007bff;
+    }

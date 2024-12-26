@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { useInstantDB } from '../hooks/useInstantDB';
 import '../styles/ChatWindow.css';
+import Message from './Message';
 
 const ChatWindow = () => {
   const { state } = useAppContext();
@@ -20,14 +21,7 @@ const ChatWindow = () => {
       <div className="chat-header">{selectedContact.name}</div>
       <div className="chat-messages">
         {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`message ${message.senderId === JSON.parse(localStorage.getItem('myContactId')) ? 'sent' : 'received'}`}
-          >
-            <div className='msg'>
-              {message.text}
-            </div>
-          </div>
+          <Message message={message} key={message.id}/>
         ))}
       </div>
     </div>
