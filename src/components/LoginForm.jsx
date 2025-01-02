@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useAuthCheck } from '../hooks/useAuthCheck';
-import '../styles/LoginForm.css'; 
+import '../styles/AuthForm.css'; 
+import { Link } from 'react-router-dom';
 
 const LoginForm = ({ onLogin }) => {
   const [contactId, setContactId] = useState('');
@@ -33,19 +34,19 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Log In</h2>
-      <form className="login-form" onSubmit={handleLogin}>
+    <div className="auth-container">
+      <h2 className="auth-title">Log In</h2>
+      <form className="auth-form" onSubmit={handleLogin}>
         <div className="input-group">
           <label htmlFor="contactId">Contact ID</label>
           <input
-            type="tel"
+            type="text"
             id="contactId"
-            placeholder="Enter your 10-digit Contact number"
+            placeholder="Enter your Contact ID here"
             value={contactId}
             onChange={(e) => setContactId(e.target.value)}
-            pattern="[0-9]{10}"
-            maxLength="10"
+            // pattern="[0-9]{10}"
+            // maxLength="10"
             required
           />
         </div>
@@ -60,9 +61,10 @@ const LoginForm = ({ onLogin }) => {
             required
           />
         </div>
-        <button type="submit" className="login-button" disabled={isLoading}>
+        <button type="submit" className="auth-button" disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Log In'}
         </button>
+        <p>Don't have an account? <Link to={'/signup'}>Sign Up</Link></p>
         {error && <p className="error-message">Error: {error.message}</p>}
       </form>
     </div>

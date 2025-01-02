@@ -7,6 +7,7 @@ import MessageInput from './components/MessageInput';
 import LoginForm from './components/LoginForm';
 // import SignupForm from './components/SignupForm';
 import './App.css';
+import SignupForm from './components/SignupForm';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,11 +37,16 @@ const App = () => {
               isLoggedIn ? (
                 <Navigate to="/chat" />
               ) : (
-                <div className="auth-container">
                   <LoginForm onLogin={() => setIsLoggedIn(true)} />
-                </div>
               )
             }
+          />
+          
+          {/* Route for Sign Up page */}
+          <Route
+            path="/signup"
+            element={ <SignupForm/> }
+            
           />
 
           {/* Route for the chat application */}

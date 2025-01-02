@@ -83,7 +83,7 @@ export const useInstantDB = () => {
 
     const query = {
       users: {
-        $: { where: { contactId : "9009009001" } },
+        $: { where: { contactId : myId } },
       },
     };
 
@@ -98,7 +98,7 @@ export const useInstantDB = () => {
 
     const user = data?.users?.[0];
     // console.log('data of ',myId, data);
-    if (!user) throw new Error('Contacts not found');
+    // if (!user) throw new Error('Contacts not found');
     
     return { isLoading, error, contactList: user?.contactList||[] };
   };
