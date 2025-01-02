@@ -1,23 +1,24 @@
 .message {
-      margin-bottom: 1rem;
-    
-    }
-    .msg{
-      width: fit-content;
-      background: white;
-      padding: 0.5rem;
-      border-radius: 12px 4px;
-    }
-    .message.sent {
-      text-align: right;
-      color: #007bff;
-    }
-    
-    .message.received {
-      color: white;
-      display: flex;
-      flex-direction: row-reverse;
-    }
-    .message.received .msg{
-      background: #007bff;
-    }
+  margin-bottom: 1rem;
+}
+
+.msg {
+  width: fit-content;
+  max-width: 80%;
+  background: white;
+  /* color: #007bff; */
+  color: #3ac733;
+  padding: 0.5rem;
+  border-radius: 12px 4px;
+}
+
+.message.sent {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.message.sent .msg {
+  /* background: #007bff; */
+  background: #3ac733;
+  color: white;
+}

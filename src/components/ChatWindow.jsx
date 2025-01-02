@@ -6,10 +6,10 @@ import Message from './Message';
 
 const ChatWindow = () => {
   const { state } = useAppContext();
-  const { useMessages } = useInstantDB();
+  const { showMessages } = useInstantDB();
 
   const selectedContact = state.selectedContact;
-  const { isLoading, error, messages } = useMessages(selectedContact?.id);
+  const { isLoading, error, messages } = showMessages(selectedContact?.contactId);
   console.log(messages)
 
   if (!selectedContact) return <div className="placeholder">Select a contact to start chatting</div>;

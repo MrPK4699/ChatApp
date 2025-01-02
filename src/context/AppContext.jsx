@@ -4,10 +4,10 @@ const AppContext = createContext();
 
 const initialState = {
   contacts: [
-    { id: 9009009001, name: 'Alice' },
-    { id: 9009009002, name: 'Bob' },
-    { id: 9009009003, name: 'Charlie' },
-    { id: 9009009004, name: 'Chris' }
+    { 
+      contactId: '',
+      name: '' 
+    },
   ],
   messages: {},
   selectedContact: null,
@@ -27,6 +27,13 @@ function reducer(state, action) {
           ...state.messages,
           [contactId]: [...(state.messages[contactId] || []), message],
         },
+      };
+    case 'ADD_CONTACT':
+      return { ...state, contacts: [...state.contacts, action.payload] };
+    case 'DELETE_CONTACT':
+      return {
+        ...state,
+        contacts: state.contacts.filter((contact) => contact.id !== action.payload),
       };
     default:
       return state;

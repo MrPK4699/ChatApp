@@ -43,7 +43,9 @@ export const useAuth = () => {
         }
   
         console.log('User logged in successfully!');
+        console.log(user);
         localStorage.setItem('myContactId', contactId);
+        localStorage.setItem('InstantDB', user.id);
         return user;
       } catch (error) {
         console.error('Error logging in:', error.message);
