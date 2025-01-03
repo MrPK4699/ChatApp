@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useAuthCheck } from '../hooks/useAuthCheck';
+// import { useAuthCheck } from '../hooks/useAuthCheck';
 import '../styles/AuthForm.css'; 
 import { Link } from 'react-router-dom';
 
 const LoginForm = ({ onLogin }) => {
   const [contactId, setContactId] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser } = useAuth();
-  const { useLoginCheck } = useAuthCheck();
+
+  // yha kiya change
+    const { loginUser,useLoginCheck } = useAuth();
+    // const { loginUser} = useAuth();
+    // const { useLoginCheck } = useAuthCheck();
+
+
   const { user, isLoading, error } = useLoginCheck(contactId);
 
   const handleLogin = async (e) => {

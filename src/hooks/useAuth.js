@@ -31,27 +31,61 @@ export const useAuth = () => {
   };
 
   const loginUser = async ({ contactId, password }, user) => {
-      try {
-        if (!user) {
-          throw new Error('User not found');
-        }
-  
-        // Verify the password
-        const hashedPassword = password; // Use a secure hashing mechanism in production
-        if (user.password !== hashedPassword) {
-          throw new Error('Invalid credentials');
-        }
-  
-        console.log('User logged in successfully!');
-        console.log(user);
-        localStorage.setItem('myContactId', contactId);
-        localStorage.setItem('InstantDB', user.id);
-        return user;
-      } catch (error) {
-        console.error('Error logging in:', error.message);
-        throw error;
+    try {
+      if (!user) {
+        throw new Error('User not found');
       }
-    };
 
-  return { signupUser, loginUser };
+      // Verify the password
+      const hashedPassword = password; // Use a secure hashing mechanism in production
+      if (user.password !== hashedPassword) {
+        throw new Error('Invalid credentials');
+      }
+
+      console.log('User logged in successfully!');
+      console.log(user);
+      localStorage.setItem('myContactId', contactId);
+      localStorage.setItem('InstantDB', user.id);
+      return user;
+    } catch (error) {
+      console.error('Error logging in:', error.message);
+      throw error;
+    }
+  };
+
+
+// yha se
+const useUserCheck = (contactId) => {
+  const query = {
+    users: {
+      $: {
+        where: { contactId },
+      },
+    },
+  };
+
+  const { data, isLoading, error } = db.useQuery(query);
+
+  return {
+    userExists: data?.users?.length > 0,
+    isLoading,
+    error,
+  };
+};
+const useLoginCheck = (contactId) => {
+  const query = {
+    users: {
+      $: {
+        where: { contactId },
+      },
+    },
+  };
+
+  const { data, isLoading, error } = db.useQuery(query);
+  const user = data?.users?.[0];
+
+  return { user, isLoading, error };
+};
+
+  return { signupUser, loginUser, useUserCheck, useLoginCheck };
 };

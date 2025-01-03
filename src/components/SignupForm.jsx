@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useAuthCheck } from '../hooks/useAuthCheck';
+// import { useAuthCheck } from '../hooks/useAuthCheck';
 import '../styles/AuthForm.css'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
   const [contactId, setContactId] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const {useUserCheck} =useAuthCheck();
-  const { signupUser } = useAuth();
+  // yha kiya h change
+    // const {useUserCheck} =useAuthCheck();
+    // const { signupUser } = useAuth();
+    const { signupUser, useUserCheck } = useAuth();
+
+
   const { userExists, isLoading, error } = useUserCheck(contactId);
+
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -29,6 +35,7 @@ const SignupForm = () => {
     try {
       await signupUser({ contactId, name, password }, userExists);
       alert('Signup successful!');
+      navigate('/login')
     } catch (signupError) {
       alert(signupError.message);
     }

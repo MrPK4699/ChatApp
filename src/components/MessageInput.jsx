@@ -11,7 +11,7 @@ const MessageInput = () => {
   const sendMessage = async () => {
     if (!newMessage.trim() || !state.selectedContact) return;
 
-    await addMessage(state.selectedContact.id, newMessage);
+    await addMessage(state.selectedContact.contactId, newMessage);
     setNewMessage('');
   };
 
