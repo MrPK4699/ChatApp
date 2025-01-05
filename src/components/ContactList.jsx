@@ -63,6 +63,7 @@ const ContactList = () => {
           {/* <button onClick={() => handleDeleteContact(contact.id)}>Delete</button> */}
         </div>
       ))}
+      {contactList?.length===0 && <div className='noContact'> Please Add Contacts First</div>}
     </div>
   );
 };
